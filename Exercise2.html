@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vezbi</title>
+    <script src="jquery/jquery.js"></script>
+    <script src="jquery/jquery-ui.js"></script>
+    <link rel="stylesheet" href="jquery/jquery-ui.css">
+    <style>
+        body{
+            display: flex;
+        }
+        li{
+                list-style-type: none;
+        }
+        .ui-selectee{
+            background: lightgray;
+
+        }
+        .ui-selected{
+            background: orange;
+            color: white;
+        }
+    </style>
+    <script>
+        $(document).ready(function (){
+
+            //date
+            $("#date").datepicker({
+                changeYear: true,
+                changeMonth: true,
+                dateFormat: "dd-D.mm.yy",
+                firstDay: 0,
+                showAnim: "fold"
+            })
+
+            //autocomplete
+            var items = [
+                {label: "Product1", category: "Trousers"},
+                {label: "Product2", category: "Trousers"},
+                {label: "Product3", category: "Jeans"},
+                {label: "Product4", category: "Jeans"},
+                {label: "Product5", category: "Jeans"},
+                {label: "Product6", category: "Jeans"},
+                {label: "Product7", category: "Dress"},
+                {label: "Product8", category: "Dress"},
+                {label: "Product9", category: "Dress"},
+            ]
+            $("#autocomplete").autocomplete({
+                source: items,
+            }).autocomplete("instance")._renderMenu= function (ul,items){
+                var currentcategory=""
+                $.each(items,function (index,item){
+                    if(currentcategory!==item.category) {
+                        ul.append("<li><b>" + item.category + "</b></li>")
+                        currentcategory = item.category
+                    }
+                    ul.append("<li>" + item.label + "</li>")
+                })
+            }
+
+
+
+            //password strength
+            $("#password").keydown(function (){
+                var strength = passwordStrength($(this).val())
+                console.log(strength)
+                $("#progressbar").progressbar({
+                    value: strength*33
+                })
+            })
+            function passwordStrength(input){
+                var strengthCounter=0;
+                if(input.length>8){
+                    strengthCounter++;
+                }
+                var specialChar='!@#$%^&*?';
+                for (let i=0;i<input.length;i++){
+                    if(specialChar.includes(input.charAt(i))){
+                        strengthCounter++;
+                        break;
+                    }
+                }
+                for (let i=0;i<input.length;i++){
+                    if(input.charAt(i)===input.charAt(i).toUpperCase()){
+                        strengthCounter++;
+                        break;
+                    }
+                }
+                return strengthCounter
+
+            }
+
+            //sortable
+            $("#toRight").click(function (){
+                $(".ui-selected").removeClass(".ui-selected").addClass("ui-selectee").appendTo($("#destination"))
+
+
+            })
+            $("#source").selectable(function (){
+
+            })
+
+            //list builder
+            $("#leftSide, #rightSide").sortable({
+                connectWith: ".sort"
+            }).disableSelection();
+
+        })
+    </script>
+</head>
+<body>
+<div>
+    <input type="text" placeholder="Choose date" id="date">
+</div>
+
+<div>
+    <input type="text" placeholder="Enter product" id="autocomplete">
+</div>
+
+<div>
+    <input type="password" placeholder="Enter password" id="password">
+    <div id="progressbar"></div>
+</div>
+
+<div>
+    <div>
+        <ul id="source">
+            <li>item1</li>
+            <li>item2</li>
+            <li>item3</li>
+            <li>item4</li>
+        </ul>
+    </div>
+    <div>
+    <button id="toRight">></button>
+    <button id="toLeft"><</button>
+    </div>
+    <div>
+        <ul id="destination"></uL>
+    </div>
+</div>
+
+
+<div>
+    <div>
+        <ul id="leftSide" class="sort">
+            <li>item1</li>
+            <li>item2</li>
+            <li>item3</li>
+            <li>item4</li>
+        </ul>
+    </div>
+
+    <div>
+        <ul id="rightSide" class="sort">
+            <li>item1</li>
+        </uL>
+    </div>
+</div>
+</body>
+</html>
