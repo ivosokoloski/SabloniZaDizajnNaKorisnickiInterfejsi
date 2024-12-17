@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery/jquery.js"></script>
+    <style>
+        .kocka{
+            border: 2px solid black;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            margin: 5px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .row{
+            display: flex;
+            flex-wrap: wrap;
+        }
+    </style>
+    <script>
+        $(document).ready(function (){
+            $("p").hide();
+            $(".row").find(function (){
+                $(".kocka").click(function (){
+                $(this).find("p").toggle()
+                })
+            })
+
+        })
+
+    </script>
+</head>
+<body>
+
+<div class="row">
+    <div class="kocka" id="1">
+        <p>number</p>
+    </div><div class="kocka" id="2">
+        <p>number</p>
+    </div><div class="kocka" id="3">
+        <p>number</p>
+    </div>
+</div>
+<div class="row">
+    <div class="kocka" id="4">
+        <p>number</p>
+    </div><div class="kocka" id="5">
+        <p>number</p>
+    </div><div class="kocka" id="6">
+        <p>number</p>
+    </div>
+</div>
+<div class="row">
+    <div class="kocka" id="7">
+        <p>number</p>
+    </div><div class="kocka" id="8">
+        <p>number</p>
+    </div><div class="kocka" id="9">
+        <p>number</p>
+    </div>
+</div>
+
+
+
+</body>
+</html>
