@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .container{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;align-items: center;
+            gap: 20px;
+        }
+        #nav{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        .nav_element{
+            padding: 10px;
+            border: 2px solid black;
+            cursor: pointer;
+        }
+        .kursevi{
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .kurs{
+            width: 100px;
+            height: 100px;
+            border: 2px solid gray;
+            vertical-align: 0;
+        }
+        h1{
+            text-align: center;
+        }
+        h4,p{
+            margin: 0;
+        }
+        .ramka{
+            border: 2px solid blue;
+        }
+        #firstPage{
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .JasniVleznitocki{
+            padding: 10px;
+            border: 2px solid black;
+        }
+        #osnovna{
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .navigacija{
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        #Kolokviumska2 .kursevi{
+            display: flex;
+            flex-direction: column;
+
+        }
+        .acco{
+            width: 200px;
+            height: 50px;
+            border: 1px solid black;
+
+        }
+    </style>
+    <script src="jquery/jquery.js"></script>
+    <script src="jquery/jquery-ui.js"></script>
+    <link rel="stylesheet" href="jquery/jquery-ui.css">
+
+
+</head>
+<body>
+<div class="firstpage" id="firstPage">
+    <div title="Kolokviumska1" class="JasniVleznitocki">
+        <h2>Kolokviumska1</h2>
+    </div>
+    <div title="Kolokviumska2" class="JasniVleznitocki">
+        <h2>Kolokviumska2</h2>
+    </div>
+    <div title="Kolokviumska3" class="JasniVleznitocki">
+        <h2>Kolokviumska3</h2>
+    </div>
+</div>
+    <div id="Kolokviumska1" class="container">
+        <div id="nav">
+            <div title="Current"  class="nav_element">
+                <h3>Current</h3>
+            </div>
+            <div title="Archived" class="nav_element">
+                <h3>Archived</h3>
+            </div>
+            <div title="Upcoming" class="nav_element">
+                <h3>Upcoming</h3>
+            </div>
+            <button id="modalpanelopener">Modal</button>
+            <div id="modalpanel">
+                <h4>comment</h4>
+                <input type="text">
+            </div>
+        </div>
+        <div id="Current" class="kursevi">
+            <div class="kurs">
+                <h4>Grid of Equals</h4>
+            </div>
+            <div class="kurs">
+                <h4>Grid of Equals</h4>
+            </div>
+            <div class="kurs">
+                <h4>Grid of Equals</h4>
+            </div>
+        </div>
+        <div id="Archived" class="kursevi">
+            <div class="kurs">
+                <h4>Grid of Equals</h4>
+            </div>
+            <div class="kurs">
+                <h4>Grid of Equals</h4>
+            </div>
+            <div class="kurs">
+                <h4>Grid of Equals</h4>
+            </div>
+            <div class="kurs">
+                <h4>Grid of Equals</h4>
+            </div>
+        </div>
+        <div id="Upcoming" class="kursevi">
+            <div class="kurs">
+                <h4>Grid of Equals</h4>
+            </div>
+            <div class="kurs">
+                <h4>Grid of Equals</h4>
+            </div>
+            <div class="kurs">
+                <h4>Grid of Equals</h4>
+            </div>
+            <div class="kurs">
+                <h4>Grid of Equals</h4>
+            </div>
+            <div class="kurs">
+                <h4>Grid of Equals</h4>
+            </div>
+        </div>
+        <div id="accordion">
+            <div class="acco">
+                <h4>Friends</h4>
+                <p>some text</p>
+            </div>
+            <div class="acco">
+                <h4>about</h4>
+                <p>some text</p>
+            </div>
+            <div class="acco">
+                <h4>coment</h4>
+                <p>some text</p>
+            </div>
+    </div>
+
+    </div>
+<div id="Kolokviumska2" class="container">
+    <div id="osnovna">
+        <div title="1"  class="nav_element">
+            <h3>Current</h3>
+        </div>
+        <div title="2" class="nav_element">
+            <h3>Archived</h3>
+        </div>
+        <div title="3" class="nav_element">
+            <h3>Upcoming</h3>
+        </div>
+    </div>
+    <div id="1" class="kursevi">
+        <h3>Current</h3>
+        <div class="navigacija">
+            <button class="prev">Previous</button>
+            <button class="top">Top</button>
+            <button class="next">Next</button>
+        </div>
+        <div class="kurs">
+            <h4>Grid of Equals</h4>
+        </div>
+        <div class="kurs">
+            <h4>Grid of Equals</h4>
+        </div>
+        <div class="kurs">
+            <h4>Grid of Equals</h4>
+        </div>
+    </div>
+    <div id="2" class="kursevi">
+        <h3>Archived</h3>
+        <div class="navigacija">
+            <button class="prev">Previous</button>
+            <button class="top">Top</button>
+            <button class="next">Next</button>
+        </div>
+        <div class="kurs">
+            <h4>Grid of Equals</h4>
+        </div>
+        <div class="kurs">
+            <h4>Grid of Equals</h4>
+        </div>
+        <div class="kurs">
+            <h4>Grid of Equals</h4>
+        </div>
+        <div class="kurs">
+            <h4>Grid of Equals</h4>
+        </div>
+    </div>
+    <div id="3" class="kursevi">
+        <h3>Upcoming</h3>
+        <div class="navigacija">
+            <button class="prev">Previous</button>
+            <button class="top">Top</button>
+            <button class="next">Next</button>
+        </div>
+        <div class="kurs">
+            <h4>Grid of Equals</h4>
+        </div>
+        <div class="kurs">
+            <h4>Grid of Equals</h4>
+        </div>
+        <div class="kurs">
+            <h4>Grid of Equals</h4>
+        </div>
+        <div class="kurs">
+            <h4>Grid of Equals</h4>
+        </div>
+        <div class="kurs">
+            <h4>Grid of Equals</h4>
+        </div>
+    </div>
+    <div id="tooltip"></div>
+
+<script>
+   $(document).ready(function (){
+       $(".kursevi").hide()
+       $(".container").hide()
+       $("p").hide()
+       $(".JasniVleznitocki").click(function (){
+           let idx=$(this).attr("title")
+           $("#"+idx).show()
+           $("#firstPage").hide()
+       })
+       $(".prev").click(function (){
+           let ide=$(this).parent("div").parent("div").attr("id")
+           ide--;
+           if(ide<1){
+               ide=3;
+           }
+           $(".kursevi").hide()
+           $("#"+ide).show()
+       })
+       $(".next").click(function (){
+           let ide=$(this).parent("div").parent("div").attr("id")
+           ide++;
+           if(ide>3){
+               ide=1;
+           }
+           $(".kursevi").hide()
+           $("#"+ide).show()
+       })
+       $(".top").click(function (){
+           $(this).parent("div").parent("div").hide()
+           $("#osnovna").show()
+
+       })
+       $("#osnovna").find("div").click(function (){
+           let idx=$(this).attr("title")
+           $("#osnovna").hide()
+           $(".kursevi").hide()
+           $("#"+idx).show()
+       })
+       $(".nav_element").click(function (){
+           let idx=$(this).attr("title")
+           $(".kursevi").hide()
+           $("#"+idx).show()
+       })
+       $(".acco").click(function (){
+           $("p").hide()
+           $(this).find("p").slideToggle()
+       })
+       $(".kurs").hover(function (){
+           $(this).addClass("ramka")
+       }, function (){
+           $(this).removeClass("ramka")
+       })
+       $("#modalpanel").dialog({
+           modal:true,
+           resizable: true,
+           autoOpen: false,
+           buttons: {
+               ok:function (){
+                   $("#modalpanel").dialog("close")
+               }
+           }
+       })
+       $("#modalpanelopener").click(function (){
+           $("#modalpanel").dialog("open")
+       })
+
+   })
+</script>
+</div>
+
+</body>
+</html>
