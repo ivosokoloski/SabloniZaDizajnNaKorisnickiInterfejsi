@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>av9</title>
+  <script src="jquery/jquery.js"></script>
+  <script src="jquery/jquery-ui.js"></script>
+  <link rel="stylesheet" href="jquery/jquery-ui.css">
+  <style>
+    .drivers{
+      list-style-type: none;
+      padding: 10px;
+      border: 1px solid black;
+      border-radius: 5px;
+      width: 400px;
+      cursor: pointer;
+    }
+    .countries{
+      list-style-type: none;
+      cursor: pointer;
+      width: 130px;
+    }
+    .drivers:nth-child(2n){
+      background: lightblue;
+    }
+    .countries{
+
+    }
+    .driverurl{
+      display: none;
+    }
+  </style>
+</head>
+<body>
+<h1>Formula drivers</h1>
+<div class="mestozadrzavi">
+    <ul id="mestozadrzavi">
+    </ul>
+  <div id="content">
+    <ul id="mestozadrivers">
+    </ul>
+  </div>
+
+</div>
+<script>
+  function getCountries(){
+     $.ajax({
+       url: "http://ergast.com/api/f1/drivers.json",
+       dataType: "json",
+       success:function (data){
+         var countries=[]
+         var drivers=data.MRData.DriverTable.Drivers
+         drivers.forEach((driver)=>{
+           if(!countries.includes(driver.nationality)){
+             countries.push(driver.nationality);
+           }
+         })
+         for(let i=0;i<countries.length;i++){
+           document.getElementById("mestozadrzavi").innerHTML+="<li class='countries'>"+countries[i]+"</li>"
+         }
+       }
+     })
+  }
+  getCountries();
+  function getDriver(country) {
+    $.ajax({
+      url: "http://ergast.com/api/f1/drivers.json",
+      dataType: "json",
+      success: function (data) {
+        document.getElementById("mestozadrivers").innerHTML=""
+        var driver = data.MRData.DriverTable.Drivers
+        driver.forEach((driver)=>{
+          if(driver.nationality===country) {
+            document.getElementById("mestozadrivers").innerHTML += "<li title='" + driver.nationality + "' class='drivers'>" + driver.givenName + "<br>" + driver.dateOfBirth + "<br><a class='driverurl' href='" + driver.url + "'>" + driver.url + "</a></li>"
+          }
+        })
+      }
+    })
+  }
+  $(document).ready(function (){
+    $(document).on("click",".drivers",function (){
+      $(this).find(".driverurl").toggle()
+    })
+    $(document).tooltip({})
+    $(".mestozadrzavi").tabs({})
+    $(document).on("click",".countries",function (){
+      getDriver(this.innerHTML)
+    })
+  })
+</script>
+</body>
+</html>
