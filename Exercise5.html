@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="jquery/jquery-ui.css">
+    <script src="jquery/jquery.js"></script>
+    <script src="jquery/jquery-ui.js"></script>
+    <style>
+        #tabs-1{
+            display: flex;
+        }
+        #container{
+            display: flex;
+
+        }
+        #main{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border-right: 1px solid black;
+        }
+        #drug{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        #feedback { font-size: 1.4em; }
+        #selectable .ui-selecting { background: #FECA40; }
+        #selectable .ui-selected { background: #F39814; color: white; }
+        #selectable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+        #selectable li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: 18px; }
+        #left, #right{
+            display: flex;
+
+            flex-direction: column;
+            height: 200px;
+            width: 200px;
+        }
+        .student:nth-of-type(2n){
+            background: gray;
+        }
+        #movies{
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+        }
+        #movieimg{
+            width: 200px;
+        }
+        #leftside, #rightside{
+            width: 200px;
+            border-right: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <div id="main">
+        <h3>Enrolled students</h3>
+        <div id="left">
+
+        </div>
+        <div><button id="newStudent">Add new student</button></div>
+    </div>
+    <div id="drug">
+    <h3>Students that took the test</h3>
+    <div id="right">
+
+    </div>
+    </div>
+</div>
+<div id="modalpanel">
+    <h3>Insert</h3>
+    <p>Name</p>
+    <input type="text" id="name">
+    <p>index</p>
+    <input type="text" id="index">
+</div>
+<div id="modalpanel2">
+    <h3>Points</h3>
+    <input type="text" id="points">
+
+</div>
+
+<ul id="selectable">
+
+</ul>
+<div id="movies">
+    <div><button id="addMovie">Add Movie</button></div>
+    <h3>Title:<span id="movietitle"></span></h3>
+    <h3>Rating:<span id="moveirating"></span></h3>
+    <img id="movieimg">
+</div>
+<div id="modalMovie">
+    <p>name</p>
+    <input type="text" id="moviename">
+</div>
+<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">Studenti</a></li>
+        <li><a href="#tabs-2">Ocenki</a></li>
+    </ul>
+    <div id="tabs-1">
+        <div id="leftside">
+            <ul id="leftlist">
+            <li title="30" rel="111113"><input type="checkbox"/>Петре Петревски </li>
+            <li title="55" rel="111114"> <input type="checkbox"/>Аце Ацевски</li>
+            <li title="100" rel="111115"> <input type="checkbox"/>Мите Митрески</li>
+            <li title="85" rel="111117"> <input type="checkbox"/>Мирко Мирковски</li>
+            </ul>
+            <div id="strelki">
+                <button id="toright">></button>
+                <button id="toleft"><</button>
+            </div>
+        </div>
+        <div id="rightside">
+
+        </div>
+    </div>
+    <div id="tabs-2">
+        <div id="6" title="0">6</div>
+        <div id="7" title="0">7</div>
+        <div id="8" title="0">8</div>
+        <div id="9" title="0">9</div>
+        <div id="10" title="0">10</div>
+    </div>
+
+</div>
+<script>
+    var students=0
+    $(document).ready(function (){
+        var $student
+        var moviename
+        $("#modalpanel").dialog({
+            modal:true,
+            autoOpen:false,
+            buttons: {
+                Ok: function() {
+                    let name=$("#name").val()
+                    let index=$("#index").val()
+                    let dodadi="<div class='student'>"+name+ ""+index+"</div>"
+                    document.getElementById("left").innerHTML+=dodadi;
+                    $( this ).dialog( "close" );
+                }
+            }
+        })
+        $("#modalpanel2").dialog({
+            modal:true,
+            autoOpen:false,
+            buttons: {
+                Ok: function() {
+                    let points=$("#points").val()
+                    $student.attr("title",points)
+                    $( this ).dialog( "close" );
+                }
+            }
+        })
+
+        $("#newStudent").click(function (){
+            $("#modalpanel").dialog("open")
+        })
+        $( "#left").sortable({
+            connectWith:"#right"
+        }).disableSelection()
+        $( "#right").sortable({
+            receive:function (event, ui){
+                 $student= ui.item
+                $("#modalpanel2").dialog("open")
+            }
+        })
+        $("#modalMovie").dialog({
+            modal:true,
+            autoOpen:false,
+            buttons: {
+                Ok: function() {
+                    moviename=$("#moviename").val()
+                    var dodadi=document.createElement("li")
+                    dodadi.innerHTML=moviename
+                    document.getElementById("selectable").appendChild(dodadi)
+                    $( this ).dialog( "close" );
+                }
+            }
+        })
+        $("#selectable").selectable({
+            stop: function (){
+                $.ajax({
+                    url:"http://omdbapi.com/?t=" + $(this).find(".ui-selected").html() + "&apikey=" + "4fd1a096",
+                    success:function (data){
+                        console.log(data)
+                        $("#movietitle").html(data.Title)
+                        $("#moveirating").html(data.imdbRating)
+                        $("#movieimg").attr("src",data.Poster)
+
+                    }
+                })
+
+            }
+        })
+        $("#addMovie").click(function (){
+            $("#modalMovie").dialog("open")
+        })
+
+        var ocenkapoeni
+
+        $( "#tabs" ).tabs();
+        $("#toright").click(function (){
+            students++;
+            if($("#leftlist").find("input:checked").parent().attr("title")>49){
+                $("#leftlist").find("input:checked").parent().remove().appendTo("#rightside")
+               ocenkapoeni=$("#rightside").find("input").prop("checked",false).parent().attr("title")
+                if(ocenkapoeni>49&&ocenkapoeni<61){
+                    let titlee= $("#6").attr("title")
+                    titlee=(parseInt(titlee)+10)/students
+                   console.log(titlee)
+                     $("#6").attr("title",titlee)
+                    $("#6").progressbar({
+                        value: titlee
+                    })
+                }else if(ocenkapoeni>59&&ocenkapoeni<71){
+                    let titlee= $("#7").attr("title")
+                    titlee=parseInt(titlee)+10
+                    console.log(titlee)
+                    $("#7").attr("title",titlee)
+                    $("#7").progressbar({
+                        value: titlee
+                    })
+                }else if(ocenkapoeni>69&&ocenkapoeni<81){
+                    let titlee= $("#8").attr("title")
+                    titlee=parseInt(titlee)+10
+                    console.log(titlee)
+                    $("#8").attr("title",titlee)
+                    $("#8").progressbar({
+                        value: titlee
+                    })
+                }else if(ocenkapoeni>79&&ocenkapoeni<91){
+                    let titlee= $("#9").attr("title")
+                    titlee=parseInt(titlee)+10
+                    console.log(titlee)
+                    $("#9").attr("title",titlee)
+                    $("#9").progressbar({
+                        value: titlee
+                    })
+                }else if(ocenkapoeni>89&&ocenkapoeni<101){
+                    let titlee= $("#10").attr("title")
+                    titlee=parseInt(titlee)+10
+                    console.log(titlee)
+                    $("#10").attr("title",titlee)
+                    $("#10").progressbar({
+                        value: titlee
+                    })
+                }
+
+            }else{
+                alert("ne")
+            }
+        })
+        $("#toleft").click(function (){
+            $("#rightside").find("input:checked").parent().remove().appendTo("#leftlist")
+            $("#leftlist").find("input").prop("checked",false)
+            students--
+
+        })
+
+
+    })
+</script>
+</body>
+</html>
